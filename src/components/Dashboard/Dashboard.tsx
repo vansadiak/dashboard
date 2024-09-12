@@ -9,7 +9,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Streamify Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Streamify Dashboard</h1>
       <KeyMetrics />
       <DataVisualization />
       <DataTable />

@@ -1,25 +1,53 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define the shape of our context state
-interface StreamifyContextState {
+interface KeyMetrics {
   totalUsers: number;
   activeUsers: number;
   totalStreams: number;
   revenue: number;
   topArtist: string;
-  // Add more state properties as needed
 }
 
-// Define the shape of our context
+interface UserGrowthData {
+  date: string;
+  totalUsers: number;
+  activeUsers: number;
+}
+
+interface RevenueDistribution {
+  source: string;
+  amount: number;
+}
+
+interface TopSong {
+  name: string;
+  artist: string;
+  streams: number;
+}
+
+interface StreamData {
+  songName: string;
+  artist: string;
+  dateStreamed: string;
+  streamCount: number;
+  userId: string;
+}
+
+interface StreamifyContextState {
+  keyMetrics: KeyMetrics;
+  userGrowthData: UserGrowthData[];
+  revenueDistribution: RevenueDistribution[];
+  topSongs: TopSong[];
+  recentStreams: StreamData[];
+}
+
 interface StreamifyContextType {
   state: StreamifyContextState;
   updateState: (newState: Partial<StreamifyContextState>) => void;
 }
 
-// Create the context
 const StreamifyContext = createContext<StreamifyContextType | undefined>(undefined);
 
-// Create a custom hook to use the context
 export const useStreamify = () => {
   const context = useContext(StreamifyContext);
   if (!context) {
@@ -28,15 +56,19 @@ export const useStreamify = () => {
   return context;
 };
 
-// Create the provider component
 export const StreamifyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, setState] = useState<StreamifyContextState>({
-    totalUsers: 0,
-    activeUsers: 0,
-    totalStreams: 0,
-    revenue: 0,
-    topArtist: '',
-    // Initialize other state properties here
+    keyMetrics: {
+      totalUsers: 0,
+      activeUsers: 0,
+      totalStreams: 0,
+      revenue: 0,
+      topArtist: '',
+    },
+    userGrowthData: [],
+    revenueDistribution: [],
+    topSongs: [],
+    recentStreams: [],
   });
 
   const updateState = (newState: Partial<StreamifyContextState>) => {
