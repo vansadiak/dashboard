@@ -1,7 +1,9 @@
 import React from 'react';
 import { useStreamify } from '../../../context/StreamifyContext';
 import MetricCard from './MetricCard';
-import { FaUsers, FaHeadphones, FaMusic, FaDollarSign, FaTrophy } from 'react-icons/fa';
+import { RiUserVoiceLine, RiMoneyDollarCircleLine } from 'react-icons/ri';
+import { BiDollar } from 'react-icons/bi';
+import { LuTrophy, LuHeadphones, LuMusic } from 'react-icons/lu';
 
 const KeyMetrics: React.FC = () => {
   const { state } = useStreamify();
@@ -15,24 +17,24 @@ const KeyMetrics: React.FC = () => {
         <MetricCard
           title="Total Users"
           value={state.keyMetrics.totalUsers.toLocaleString()}
-          icon={<FaUsers className={iconClass} />}
+          icon={<RiUserVoiceLine className={iconClass} />}
         />
         <MetricCard
           title="Active Users"
           value={state.keyMetrics.activeUsers.toLocaleString()}
-          icon={<FaHeadphones className={iconClass} />}
+          icon={<LuHeadphones className={iconClass} />}
         />
         <MetricCard
           title="Total Streams"
           value={state.keyMetrics.totalStreams.toLocaleString()}
-          icon={<FaMusic className={iconClass} />}
+          icon={<LuMusic className={iconClass} />}
         />
         <MetricCard
           title="Revenue"
           value={`$${state.keyMetrics.revenue.toLocaleString()}`}
-          icon={<FaDollarSign className={iconClass} />}
+          icon={<BiDollar className={iconClass} />}
         />
-        <MetricCard title="Top Artist" value={state.keyMetrics.topArtist} icon={<FaTrophy className={iconClass} />} />
+        <MetricCard title="Top Artist" value={state.keyMetrics.topArtist} icon={<LuTrophy className={iconClass} />} />
       </div>
     </div>
   );

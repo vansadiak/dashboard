@@ -3,6 +3,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useStreamify } from '../../../context/StreamifyContext';
 import { useTheme } from '../../../context/ThemeContext';
+import { getRevenueDistributionOptions, getTopSongsOptions, getUserGrowthOptions } from 'src/utils/chartOptions';
 
 const DataVisualization: React.FC = () => {
   const { state } = useStreamify();
@@ -10,117 +11,9 @@ const DataVisualization: React.FC = () => {
 
   const isDarkMode = theme === 'dark';
 
-  const chartColors = {
-    background: isDarkMode ? '#1F2937' : '#FFFFFF',
-    text: isDarkMode ? '#D1D5DB' : '#1F2937',
-    lineColors: ['#3B82F6', '#10B981'],
-    pieColors: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'],
-  };
-
-  const userGrowthOptions: Highcharts.Options = {
-    chart: {
-      type: 'line',
-      backgroundColor: chartColors.background,
-    },
-    title: {
-      text: 'User Growth',
-      style: { color: chartColors.text },
-    },
-    xAxis: {
-      categories: state.userGrowthData.map((data) => data.date),
-      labels: { style: { color: chartColors.text } },
-    },
-    yAxis: {
-      title: {
-        text: 'Number of Users',
-        style: { color: chartColors.text },
-      },
-      labels: { style: { color: chartColors.text } },
-    },
-    series: [
-      {
-        type: 'line',
-        name: 'Total Users',
-        data: state.userGrowthData.map((data) => data.totalUsers),
-        color: chartColors.lineColors[0],
-      },
-      {
-        type: 'line',
-        name: 'Active Users',
-        data: state.userGrowthData.map((data) => data.activeUsers),
-        color: chartColors.lineColors[1],
-      },
-    ],
-    legend: {
-      itemStyle: { color: chartColors.text },
-    },
-  };
-
-  const revenueDistributionOptions: Highcharts.Options = {
-    chart: {
-      type: 'pie',
-      backgroundColor: chartColors.background,
-    },
-    title: {
-      text: 'Revenue Distribution',
-      style: { color: chartColors.text },
-    },
-    series: [
-      {
-        type: 'pie',
-        name: 'Revenue',
-        data: state.revenueDistribution.map((item, index) => ({
-          name: item.source,
-          y: item.amount,
-          color: chartColors.pieColors[index % chartColors.pieColors.length],
-        })),
-      },
-    ],
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-          style: { color: chartColors.text },
-        },
-      },
-    },
-  };
-
-  const topSongsOptions: Highcharts.Options = {
-    chart: {
-      type: 'bar',
-      backgroundColor: chartColors.background,
-    },
-    title: {
-      text: 'Top 5 Streamed Songs',
-      style: { color: chartColors.text },
-    },
-    xAxis: {
-      categories: state.topSongs.map((song) => song.name),
-      labels: { style: { color: chartColors.text } },
-    },
-    yAxis: {
-      title: {
-        text: 'Number of Streams',
-        style: { color: chartColors.text },
-      },
-      labels: { style: { color: chartColors.text } },
-    },
-    series: [
-      {
-        type: 'bar',
-        name: 'Streams',
-        data: state.topSongs.map((song) => song.streams),
-        color: chartColors.lineColors[0],
-      },
-    ],
-    legend: {
-      itemStyle: { color: chartColors.text },
-    },
-  };
+  const userGrowthOptions = getUserGrowthOptions(state.userGrowthData, isDarkMode);
+  const revenueDistributionOptions = getRevenueDistributionOptions(state.revenueDistribution, isDarkMode);
+  const topSongsOptions = getTopSongsOptions(state.topSongs, isDarkMode);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mt-6">
