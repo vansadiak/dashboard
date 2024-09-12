@@ -19,8 +19,8 @@
     "paths": {
       "@types/*": ["types/*"],
       "@utils/*": ["utils/*"],
-      "@mocks/*": ["mocks/*"]
+      "@mocks/*": ["src/mocks/*"]
     }
   },
-  "include": ["src/**/**"]
+  "include": ["src/**/*"]
 }
