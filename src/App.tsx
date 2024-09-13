@@ -5,6 +5,7 @@ import { StreamifyProvider } from './context/StreamifyContext';
 import Toolbar from './components/common/Toolbar/Toolbar';
 import './App.css';
 import { ThemeProvider } from './context/ThemeContext';
+import Loader from './components/common/Loader';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             >
               <Dashboard />
             </motion.main>
+            <Loader />
           </motion.div>
         </AnimatePresence>
       </StreamifyProvider>
