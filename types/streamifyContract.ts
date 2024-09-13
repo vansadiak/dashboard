@@ -47,4 +47,5 @@ export interface StreamifyContextState {
   revenueDistribution: RevenueDistribution[];
   topSongs: TopSong[];
   recentStreams: StreamDataConfig;
+  selectedDate: string;
 }
